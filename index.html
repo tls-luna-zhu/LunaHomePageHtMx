@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna's Homepage</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        /* --- Root Variables for Theming --- */
+        :root {
+            --color-bg: #FAF0F7;
+            --color-header-bg: #FCEEF5;
+            --color-card-bg: #FFFFFF;
+            --color-text-primary: #D870A9;
+            --color-text-secondary: #B565A7;
+            --color-text-muted: #7A5C76;
+            --color-trans-blue: #5BCEFA;
+            --color-trans-pink: #F5A9B8;
+            --color-trans-white: #FFFFFF;
+            --color-accent-pink: #FF89B8;
+            --color-border-light: #F0F3F4;
+            --color-border-pink: #FFCDEA;
+            --font-pixel: "Pixelify Sans", "Noto Sans", sans-serif;
+            --font-sans: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+        }
+
+        /* --- Base Body Styling & Animated Background --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+        }
+
+        .sparkle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image:
+                url('data:image/svg+xml;utf8,<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 0L6.12257 3.87743L10 5L6.12257 6.12257L5 10L3.87743 6.12257L0 5L3.87743 3.87743L5 0Z" fill="rgba(245, 169, 184, 0.5)"/></svg>'),
+                url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 0L3.67383 2.32617L6 3L3.67383 3.67383L3 6L2.32617 3.67383L0 3L2.32617 2.32617L3 0Z" fill="rgba(91, 206, 250, 0.5)"/></svg>');
+            background-repeat: repeat;
+            background-position: 0 0, 0 0;
+            animation: sparkle 20s linear infinite;
+            z-index: -10;
+        }
+
+        @keyframes sparkle {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 500px 1000px, 400px 800px; }
+        }
+
+        /* --- Typography --- */
+        .pixel-art-font {
+            font-family: var(--font-pixel);
+        }
+
+        .trans-gradient-text {
+            background: linear-gradient(90deg, var(--color-trans-blue), var(--color-trans-pink), var(--color-trans-white), var(--color-trans-pink), var(--color-trans-blue));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            animation: gradient-flow 8s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 200% center; }
+            100% { background-position: 0% center; }
+        }
+
+        /* --- Pixel Borders --- */
+        .pixel-border {
+            border-style: solid;
+            border-image-slice: 2;
+            border-image-width: 2;
+            border-image-repeat: stretch;
+            border-image-source: url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H2V2H0V0Z M2 0H4V2H2V0Z M4 0H6V2H4V0Z M0 2H2V4H0V2Z M4 2H6V4H4V2Z M0 4H2V6H0V4Z M2 4H4V6H2V4Z M4 4H6V6H4V4Z" fill="' + encodeURIComponent(getComputedStyle(document.documentElement).getPropertyValue('--color-border-light')) + '" /></svg>');
+            border-image-outset: 2;
+        }
+        
+        .pixel-border-white {
+             border-image-source: url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H2V2H0V0Z M2 0H4V2H2V0Z M4 0H6V2H4V0Z M0 2H2V4H0V2Z M4 2H6V4H4V2Z M0 4H2V6H0V4Z M2 4H4V6H2V4Z M4 4H6V6H4V4Z" fill="white" /></svg>');
+        }
+
+        .pixel-border-trans {
+            border-style: solid;
+            border-image-slice: 2;
+            border-image-width: 4;
+            border-image-repeat: stretch;
+            border-image-source: url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H2V2H0V0Z M2 0H4V2H2V0Z M4 0H6V2H4V0Z M0 2H2V4H0V2Z M4 2H6V4H4V2Z M0 4H2V6H0V4Z M2 4H4V6H2V4Z M4 4H6V6H4V4Z" fill="' + encodeURIComponent(getComputedStyle(document.documentElement).getPropertyValue('--color-trans-blue')) + '" /></svg>');
+            border-image-outset: 2;
+            position: relative;
+        }
+
+        .pixel-border-trans::before, .pixel-border-trans::after {
+            content: "";
+            position: absolute;
+            border-style: solid;
+            border-image-slice: 2;
+            border-image-width: 4px;
+            border-image-repeat: stretch;
+            z-index: -1;
+        }
+        
+        .pixel-border-trans::before {
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
+            border-image-source: url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H2V2H0V0Z M2 0H4V2H2V0Z M4 0H6V2H4V0Z M0 2H2V4H0V2Z M4 2H6V4H4V2Z M0 4H2V6H0V4Z M2 4H4V6H2V4Z M4 4H6V6H4V4Z" fill="' + encodeURIComponent(getComputedStyle(document.documentElement).getPropertyValue('--color-trans-pink')) + '" /></svg>');
+        }
+
+        .pixel-border-trans::after {
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+            border-image-source: url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H2V2H0V0Z M2 0H4V2H2V0Z M4 0H6V2H4V0Z M0 2H2V4H0V2Z M4 2H6V4H4V2Z M0 4H2V6H0V4Z M2 4H4V6H2V4Z M4 4H6V6H4V4Z" fill="' + encodeURIComponent(getComputedStyle(document.documentElement).getPropertyValue('--color-trans-white')) + '" /></svg>');
+            z-index: -2;
+        }
+        
+        /* --- Header & Navigation --- */
+        .header {
+            background-color: var(--color-header-bg);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .top-bar-trans-flag {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .trans-flag-stripe { height: 6px; width: 100%; }
+        .trans-blue { background-color: var(--color-trans-blue); }
+        .trans-pink { background-color: var(--color-trans-pink); }
+        .trans-white { background-color: var(--color-trans-white); }
+        
+        .nav-link {
+            color: var(--color-text-primary);
+            transition: all 0.2s ease-in-out;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--color-trans-blue);
+            transform: translateY(-2px);
+        }
+
+        /* --- Avatars & Images --- */
+        .avatar {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            image-rendering: pixelated;
+        }
+
+        /* --- Buttons --- */
+        .primary-button {
+            image-rendering: pixelated;
+            color: white;
+            background: linear-gradient(90deg, var(--color-trans-blue), var(--color-trans-pink));
+            background-size: 200% 200%;
+            transition: all 0.3s ease;
+        }
+        .primary-button:hover {
+            background-position: right center;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .osu-button {
+            image-rendering: pixelated;
+            color: white;
+            background: linear-gradient(90deg, #FF66AA, #FF89B8, #FFB3D1);
+            background-size: 200% 200%;
+            transition: all 0.3s ease;
+        }
+        .osu-button:hover {
+            background-position: right center;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 102, 170, 0.3);
+        }
+        
+        /* --- Cards & Sections --- */
+        .content-card {
+            background-color: var(--color-card-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-in-up 0.6s ease forwards;
+        }
+        .content-card.delay-1 { animation-delay: 0.1s; }
+        .content-card.delay-2 { animation-delay: 0.2s; }
+        .content-card.delay-3 { animation-delay: 0.3s; }
+        .content-card.delay-4 { animation-delay: 0.4s; }
+        .content-card.delay-5 { animation-delay: 0.5s; }
+
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- Progress Bars --- */
+        .progress-bar-bg {
+            background-color: #E9D8E4;
+            border-radius: 2px;
+            height: 12px;
+            overflow: hidden;
+            border: 1px solid #D8C9D4;
+            image-rendering: pixelated;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+            background-size: 10px 10px;
+            border-radius: 1px 0 0 1px;
+            image-rendering: pixelated;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        /* --- Project/Hobby Cards --- */
+        .link-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .link-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* --- Loading Animation Styles --- */
+        .loading-heart {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .sparkle-float {
+            animation: sparkle-float 2s ease-in-out infinite;
+        }
+
+        .sparkle-1 { animation-delay: 0s; }
+        .sparkle-2 { animation-delay: 0.5s; }
+        .sparkle-3 { animation-delay: 1s; }
+        .sparkle-4 { animation-delay: 1.5s; }
+
+        @keyframes sparkle-float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateY(-10px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        .loading-text {
+            animation: text-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes text-glow {
+            0%, 100% { 
+                text-shadow: 0 0 5px rgba(216, 112, 169, 0.3);
+            }
+            50% { 
+                text-shadow: 0 0 20px rgba(216, 112, 169, 0.6), 0 0 30px rgba(216, 112, 169, 0.4);
+            }
+        }
+
+        .loading-dot {
+            animation: dot-bounce 1.4s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: 0s; }
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dot-bounce {
+            0%, 80%, 100% { 
+                transform: scale(0.8) translateY(0);
+                opacity: 0.7;
+            }
+            40% { 
+                transform: scale(1.2) translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Hide main content initially */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .main-content.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-pink-100">
+    <!-- Loading Animation -->
+    <div id="loading-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#FAF0F7] to-[#FCEEF5] transition-opacity duration-1000">
+        <div class="text-center">
+            <!-- Cute Loading Icon -->
+            <div class="relative mb-8">
+                <div class="loading-heart w-16 h-16 mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGradient)"/>
+                        <defs>
+                            <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF89B8;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#F5A9B8;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#5BCEFA;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <!-- Floating sparkles around heart -->
+                <div class="absolute -top-2 -left-2 w-3 h-3 sparkle-float sparkle-1">
+                    <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path d="M5 0L6.12257 3.87743L10 5L6.12257 6.12257L5 10L3.87743 6.12257L0 5L3.87743 3.87743L5 0Z" fill="#F5A9B8"/>
+                    </svg>
+                </div>
+                <div class="absolute -top-1 -right-3 w-2 h-2 sparkle-float sparkle-2">
+                    <svg viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path d="M3 0L3.67383 2.32617L6 3L3.67383 3.67383L3 6L2.32617 3.67383L0 3L2.32617 2.32617L3 0Z" fill="#5BCEFA"/>
+                    </svg>
+                </div>
+                <div class="absolute -bottom-2 -right-1 w-2.5 h-2.5 sparkle-float sparkle-3">
+                    <svg viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path d="M4 0L4.89442 2.89442L8 4L4.89442 5.10558L4 8L3.10558 5.10558L0 4L3.10558 2.89442L4 0Z" fill="#FF89B8"/>
+                    </svg>
+                </div>
+                <div class="absolute -bottom-1 -left-3 w-2 h-2 sparkle-float sparkle-4">
+                    <svg viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <path d="M3 0L3.67383 2.32617L6 3L3.67383 3.67383L3 6L2.32617 3.67383L0 3L2.32617 2.32617L3 0Z" fill="#F5A9B8"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Loading Text -->
+            <h2 class="pixel-art-font text-2xl font-bold text-[#D870A9] mb-4 loading-text">Loading Luna's Palace...</h2>
+            
+            <!-- Cute Progress Bar -->
+            <div class="w-64 mx-auto">
+                <div class="progress-bar-bg pixel-border-white border-2">
+                    <div id="loading-progress" class="progress-bar-fill bg-gradient-to-r from-[#FF89B8] to-[#5BCEFA]"></div>
+                </div>
+            </div>
+            
+            <!-- Loading dots -->
+            <div class="flex justify-center mt-4 space-x-1">
+                <div class="loading-dot w-2 h-2 bg-[#FF89B8] rounded-full"></div>
+                <div class="loading-dot w-2 h-2 bg-[#F5A9B8] rounded-full"></div>
+                <div class="loading-dot w-2 h-2 bg-[#5BCEFA] rounded-full"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated Sparkle Background -->
+    <div class="sparkle-bg"></div>
+
+    <div class="main-content relative flex size-full min-h-screen flex-col group/design-root">
+        <div class="flex h-full grow flex-col">
+            <!-- Header -->
+            <header class="header shadow-md">
+                <div class="top-bar-trans-flag">
+                    <div class="trans-flag-stripe trans-blue"></div>
+                    <div class="trans-flag-stripe trans-pink"></div>
+                    <div class="trans-flag-stripe trans-white"></div>
+                    <div class="trans-flag-stripe trans-pink"></div>
+                    <div class="trans-flag-stripe trans-blue"></div>
+                </div>
+                <nav class="flex items-center justify-between px-4 sm:px-10 py-3">
+                    <div class="flex items-center gap-4">
+                        <div class="size-8 text-[var(--color-accent-pink)]">
+                            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 2H4V4H2V2ZM4 2H6V4H4V2ZM6 2H8V4H6V2ZM8 2H10V4H8V2ZM10 2H12V4H10V2ZM12 2H14V4H12V2ZM14 2H16V4H14V2ZM16 2H18V4H16V2ZM18 2H20V4H18V2ZM20 2H22V4H20V2ZM2 4H4V6H2V4ZM20 4H22V6H20V4ZM2 6H4V8H2V6ZM6 6H8V8H6V6ZM10 6H14V8H10V6ZM16 6H18V8H16V6ZM20 6H22V8H20V6ZM2 8H4V10H2V8ZM8 8H10V10H8V8ZM14 8H16V10H14V10ZM20 8H22V10H20V8ZM2 10H4V12H2V10ZM6 10H8V12H6V10ZM10 10H14V12H10V10ZM16 10H18V12H16V10ZM20 10H22V12H20V10ZM2 12H4V14H2V12ZM20 12H22V14H20V12ZM2 14H4V16H2V14ZM4 14H6V16H4V14ZM6 14H8V16H6V14ZM8 14H10V16H8V14ZM10 14H12V16H10V14ZM12 14H14V16H12V14ZM14 14H16V16H14V14ZM16 14H18V16H16V14ZM18 14H20V16H18V14ZM20 14H22V16H20V14Z"/></svg>
+                        </div>
+                        <h2 class="pixel-art-font text-[var(--color-text-primary)] text-2xl font-bold">Luna's Palace</h2>
+                    </div>
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <div class="hidden sm:flex items-center gap-6">
+                            <a class="nav-link pixel-art-font text-lg font-medium" href="#about">About</a>
+                            <a class="nav-link pixel-art-font text-lg font-medium" href="#projects">My Projects</a>
+                            <a class="nav-link pixel-art-font text-lg font-medium" href="#contact">Contact</a>
+                        </div>
+                        <div class="avatar rounded-md size-12 pixel-border border-2 border-[var(--color-border-pink)]" style='background-image: url("avatar.png");'></div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Main Content -->
+            <main class="px-4 sm:px-8 md:px-16 lg:px-24 flex flex-1 justify-center py-10 sm:py-16">
+                <div class="flex flex-col w-full max-w-4xl flex-1 gap-12">
+                    <!-- Hero Card -->
+                    <section class="flex justify-center">
+                        <div class="hero-card flex w-full max-w-lg flex-col gap-6 items-center bg-white pixel-border-trans p-8 rounded-lg shadow-lg">
+                            <div class="avatar rounded-md min-h-40 w-40 pixel-border border-4 border-[var(--color-border-pink)]" style='background-image: url("avatar.png");'></div>
+                            <div class="flex flex-col items-center justify-center gap-1">
+                                <h1 class="pixel-art-font trans-gradient-text text-6xl font-bold text-center pb-2">Luna</h1>
+                                <p class="pixel-art-font text-[var(--color-text-secondary)] text-xl font-medium text-center">Gamer, developer &amp; Student</p>
+                                <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-normal text-center">She/Her</p>
+                                <div class="flex gap-3 mt-4">
+                                    <a class="primary-button px-5 py-2.5 rounded-md pixel-border-white border-2 text-sm font-bold flex items-center gap-2" href="https://github.com/tls-luna-zhu" rel="noopener noreferrer" target="_blank">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 2H2V0H4V2H6V4H4V6H2V4H0V2ZM2 8H4V6H6V8H8V6H10V8H8V10H6V12H4V10H2V8ZM6 14H4V12H2V14H0V16H2V18H4V16H6V14Z M10 10H8V12H10V14H8V16H10V18H12V20H14V22H16V20H18V22H20V20H22V18H24V16H22V14H20V16H18V14H16V12H14V10H12V8H14V6H16V4H18V2H20V0H18V2H16V0H14V2H12V4H10V6H12V8H10V10ZM16 16H14V18H16V16ZM18 10H16V8H18V6H20V8H22V10H20V12H18V10Z" fill="white"></path></svg>
+                                        GitHub
+                                    </a>
+                                    <a class="osu-button px-5 py-2.5 rounded-md pixel-border-white border-2 text-sm font-bold flex items-center gap-2" href="https://osu.ppy.sh/users/36748073" rel="noopener noreferrer" target="_blank">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="white"/><circle cx="12" cy="12" r="6" fill="none" stroke="#FF66AA" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="#FF66AA"/></svg>
+                                        Osu!
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- About Me -->
+                    <section id="about" class="content-card pixel-border-trans p-6 rounded-lg shadow-md scroll-mt-24">
+                        <h2 class="pixel-art-font text-3xl font-bold px-4 pb-3 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
+                            <span class="text-2xl">🌸</span>About Me
+                        </h2>
+                        <p class="pixel-art-font text-[var(--color-text-muted)] text-lg leading-relaxed px-4">
+                            Hi there! I'm Luna, I'm a student and also a gamer and developer! Welcome to my little corner of the internet! ✨
+                        </p>
+                    </section>
+                    
+                    <!-- Skills -->
+                    <section class="content-card delay-1 pixel-border-trans p-6 rounded-lg shadow-md" id="skills">
+                         <h2 class="pixel-art-font text-3xl font-bold px-4 pb-4 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
+                            <span class="text-2xl">🛠️</span>Skills
+                        </h2>
+                        <div class="space-y-5 p-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Nuxt.js</p>
+                                    <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Intermediate</p>
+                                </div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="90%" style="background-color: var(--color-trans-pink);"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Web Design (Tailwindcss)</p>
+                                    <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Still learning</p>
+                                </div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="75%" style="background-color: var(--color-trans-blue);"></div></div>
+                            </div>
+                             <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Pixel Art</p>
+                                    <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Novice</p>
+                                </div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="60%" style="background-color: #70D870;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Game Development (Godot)</p>
+                                    <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Beginner</p>
+                                </div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="40%" style="background-color: #D8B870;"></div></div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Projects -->
+                    <section id="projects" class="content-card delay-2 pixel-border-trans p-6 rounded-lg shadow-md scroll-mt-24">
+                        <h2 class="pixel-art-font text-3xl font-bold px-4 pb-4 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
+                            <span class="text-2xl">💖</span>My Projects
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+                            <a class="link-card block pixel-border border-2 border-[#D1E0FF] bg-gradient-to-br from-[#E0F0FF] to-[#D1E4FF] p-4 rounded-md group" href="https://blog.lunazhu.top" target="_blank">
+                                <h3 class="pixel-art-font text-xl font-bold text-[var(--color-text-primary)] group-hover:text-[#C15A94] transition-colors">My blog ✨</h3>
+                                <p class="pixel-art-font text-sm text-[var(--color-text-secondary)] group-hover:text-[#A25092] transition-colors">A place where i post my stuff</p>
+                            </a>
+                            <a class="link-card block pixel-border border-2 border-[#D1E8FF] bg-gradient-to-br from-[#F0F8FF] to-[#E4F2FF] p-4 rounded-md group" href="#" target="_blank">
+                                <h3 class="pixel-art-font text-xl font-bold text-[#70A9D8] group-hover:text-[#5A94C1] transition-colors">Coming soon! 🐾</h3>
+                                <p class="pixel-art-font text-sm text-[#65A7B5] group-hover:text-[#5092A2] transition-colors">Coming Soon!</p>
+                            </a>
+                            <a class="link-card block pixel-border border-2 border-[#FFE0D1] bg-gradient-to-br from-[#FFF0E0] to-[#FFE4D1] p-4 rounded-md group" href="https://estropad.lunazhu.top" target="_blank">
+                                <h3 class="pixel-art-font text-xl font-bold text-[#D8B870] group-hover:text-[#C1A05A] transition-colors">Estrogen Tracker 🍥</h3>
+                                <p class="pixel-art-font text-sm text-[#B5A765] group-hover:text-[#A29250] transition-colors">An estrogen tracker.</p>
+                            </a>
+                            <a class="link-card block pixel-border border-2 border-[#D1FFD1] bg-gradient-to-br from-[#F0FFF0] to-[#E4FFE4] p-4 rounded-md group" href="https://todo.lunazhu.top" target="_blank">
+                                <h3 class="pixel-art-font text-xl font-bold text-[#70D870] group-hover:text-[#5AC15A] transition-colors">LunaTodo 🗓️</h3>
+                                <p class="pixel-art-font text-sm text-[#65B565] group-hover:text-[#50A250] transition-colors">A cutesy digital todo app.</p>
+                            </a>
+                        </div>
+                    </section>
+                    
+                     <!-- Gaming Stats -->
+                    <section class="content-card delay-3 pixel-border-trans p-6 rounded-lg shadow-md">
+                        <h2 class="pixel-art-font text-3xl font-bold px-4 pb-4 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
+                            <span class="text-2xl">🎮</span>Gaming Setup(Osu!)
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                            <!-- Tablet Area -->
+                             <div class="flex flex-col items-center gap-4 rounded-lg border-2 border-[#FFB3D1] bg-[#FFF0F8] p-6">
+                                 <h3 class="pixel-art-font text-[var(--color-text-secondary)] text-xl font-bold">Tablet Area</h3>
+                                 <div class="relative">
+                                     <!-- Tablet Visual -->
+                                     <div class="w-36 h-24 bg-gradient-to-br from-[#E8E8E8] to-[#D0D0D0] rounded-lg border-2 border-[#B0B0B0] pixel-border-white relative">
+                                         <!-- Full Area Highlight -->
+                                         <div class="absolute inset-2 bg-gradient-to-br from-[#FFE0F0] to-[#FFB3D1] rounded border-2 border-[#FF89B8] opacity-80">
+                                             <div class="absolute inset-1 border border-dashed border-[#FF66AA] rounded flex items-center justify-center">
+                                                 <span class="pixel-art-font text-xs text-[#FF66AA] font-bold">FULL</span>
+                                             </div>
+                                         </div>
+                                         <!-- Tablet Brand -->
+                                         <div class="absolute bottom-1 left-2 pixel-art-font text-xs text-[#666] font-bold">PTH-851</div>
+                                         <!-- Dimensions -->
+                                         <div class="absolute top-1 right-1 pixel-art-font text-xs text-[#666] font-bold">325×203mm</div>
+                                     </div>
+                                 </div>
+                                 <p class="pixel-art-font text-[var(--color-text-muted)] text-sm text-center">Wacom PTH-851<br/>325.12 × 203.2 mm<br/>Full Area Usage</p>
+                             </div>
+                            
+                            <!-- Tapping Style -->
+                             <div class="flex flex-col items-center gap-4 rounded-lg border-2 border-[#BAE6FD] bg-[#F0F9FF] p-6">
+                                 <h3 class="pixel-art-font text-[#4A8DAC] text-xl font-bold">Tapping Style</h3>
+                                 <div class="relative">
+                                     <!-- Keypad Visual -->
+                                     <div class="w-28 h-16 bg-gradient-to-br from-[#F8F8F8] to-[#E0E0E0] rounded-lg border-2 border-[#C0C0C0] pixel-border-white relative">
+                                         <!-- Keys -->
+                                         <div class="absolute top-2 left-1 w-6 h-5 bg-gradient-to-br from-[#E0F0FF] to-[#BAE6FD] rounded border border-[#5BCEFA] flex items-center justify-center">
+                                             <span class="pixel-art-font text-xs text-[#4A8DAC] font-bold">A</span>
+                                         </div>
+                                         <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-6 h-5 bg-gradient-to-br from-[#F0F0F0] to-[#D0D0D0] rounded border border-[#A0A0A0] flex items-center justify-center">
+                                             <span class="pixel-art-font text-xs text-[#666] font-bold">S</span>
+                                         </div>
+                                         <div class="absolute top-2 right-1 w-6 h-5 bg-gradient-to-br from-[#E0F0FF] to-[#BAE6FD] rounded border border-[#5BCEFA] flex items-center justify-center">
+                                             <span class="pixel-art-font text-xs text-[#4A8DAC] font-bold">D</span>
+                                         </div>
+                                         <!-- Finger indicators -->
+                                         <div class="absolute -top-3 left-2 w-2 h-2 bg-[#FF89B8] rounded-full border border-white"></div>
+                                         <div class="absolute -top-3 right-2 w-2 h-2 bg-[#FF89B8] rounded-full border border-white"></div>
+                                         <!-- Brand -->
+                                         <div class="absolute bottom-1 left-1 pixel-art-font text-xs text-[#666] font-bold">O3C</div>
+                                     </div>
+                                 </div>
+                                 <p class="pixel-art-font text-[#4A8DAC] text-sm text-center">SayoDevice O3C<br/>Ring (A) + Index (D) Fingers</p>
+                             </div>
+                        </div>
+                    </section>
+
+                     <!-- Hobbies -->
+                    <section class="content-card delay-4 pixel-border-trans p-6 rounded-lg shadow-md">
+                        <h2 class="pixel-art-font text-3xl font-bold px-4 pb-4 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
+                            <span class="text-2xl">💖</span>Interests
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+                            <div class="link-card flex flex-col items-center gap-3 rounded-lg border-2 border-[#FFCDEA] bg-[#FFF7FA] p-4">
+                                <div class="text-5xl">👾</div>
+                                <h3 class="pixel-art-font text-[var(--color-text-secondary)] text-xl font-bold">Pixel Art</h3>
+                            </div>
+                            <div class="link-card flex flex-col items-center gap-3 rounded-lg border-2 border-[#BAE6FD] bg-[#F0F9FF] p-4">
+                                <div class="text-5xl">🎮</div>
+                                <h3 class="pixel-art-font text-[#4A8DAC] text-xl font-bold">Gaming</h3>
+                            </div>
+                            <div class="link-card flex flex-col items-center gap-3 rounded-lg border-2 border-[#FFF3CF] bg-[#FFFBEB] p-4">
+                                <div class="text-5xl">🎧</div>
+                                <h3 class="pixel-art-font text-[#D97706] text-xl font-bold">Music</h3>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Section -->
+                    <section id="contact" class="content-card delay-5 pixel-border-trans p-6 rounded-lg shadow-md scroll-mt-24">
+                        <h2 class="pixel-art-font text-3xl font-bold px-4 pb-4 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
+                            <span class="text-2xl">💌</span>Get In Touch
+                        </h2>
+                        <div class="p-4 text-center">
+                            <p class="pixel-art-font text-[var(--color-text-muted)] text-lg leading-relaxed mb-4">
+                                I'd love to hear from you! Feel free to reach out.
+                            </p>
+                             <a class="pixel-art-font text-xl text-[var(--color-text-secondary)] hover:text-[var(--color-trans-blue)] transition-colors duration-300" href="mailto:luna@lunazhu.top">
+                                luna@lunazhu.top
+                            </a>
+                        </div>
+                    </section>
+
+                    <footer class="text-center py-8">
+                        <p class="pixel-art-font text-sm text-[var(--color-text-secondary)]">© 2025 Luna's Pixel Palace. Crafted with love &amp; pixels. 🏳️‍⚧️</p>
+                    </footer>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        // Loading Animation Controller
+        let loadingComplete = false;
+        let resourcesLoaded = 0;
+        let totalResources = 0;
+        
+        function updateProgress() {
+            const loadingProgress = document.getElementById('loading-progress');
+            const progress = totalResources > 0 ? (resourcesLoaded / totalResources) * 100 : 0;
+            if (loadingProgress) {
+                loadingProgress.style.width = Math.min(progress, 100) + '%';
+            }
+            
+            // Complete loading when all resources are loaded
+            if (resourcesLoaded >= totalResources && totalResources > 0 && !loadingComplete) {
+                completeLoading();
+            }
+        }
+        
+        function completeLoading() {
+            if (loadingComplete) return;
+            loadingComplete = true;
+            
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.querySelector('.main-content');
+            const loadingProgress = document.getElementById('loading-progress');
+            
+            // Ensure progress bar reaches 100%
+            if (loadingProgress) {
+                loadingProgress.style.width = '100%';
+            }
+            
+            // Wait a bit then fade out loading screen
+            setTimeout(() => {
+                if (loadingScreen) {
+                    loadingScreen.classList.add('fade-out');
+                }
+                if (mainContent) {
+                    mainContent.classList.add('show');
+                }
+                
+                // Remove loading screen from DOM after fade out
+                setTimeout(() => {
+                    if (loadingScreen) {
+                        loadingScreen.remove();
+                    }
+                }, 1000);
+            }, 300);
+        }
+        
+        // Track resource loading
+        document.addEventListener('DOMContentLoaded', function() {
+            // Count all images and other resources
+            const images = document.querySelectorAll('img');
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+            const scripts = document.querySelectorAll('script[src]');
+            
+            totalResources = images.length + stylesheets.length + scripts.length;
+            
+            // If no external resources, complete immediately
+            if (totalResources === 0) {
+                setTimeout(completeLoading, 500); // Small delay for visual effect
+                return;
+            }
+            
+            // Track image loading
+            images.forEach(img => {
+                if (img.complete) {
+                    resourcesLoaded++;
+                } else {
+                    img.addEventListener('load', () => {
+                        resourcesLoaded++;
+                        updateProgress();
+                    });
+                    img.addEventListener('error', () => {
+                        resourcesLoaded++;
+                        updateProgress();
+                    });
+                }
+            });
+            
+            // Track stylesheet loading
+            stylesheets.forEach(link => {
+                if (link.sheet) {
+                    resourcesLoaded++;
+                } else {
+                    link.addEventListener('load', () => {
+                        resourcesLoaded++;
+                        updateProgress();
+                    });
+                    link.addEventListener('error', () => {
+                        resourcesLoaded++;
+                        updateProgress();
+                    });
+                }
+            });
+            
+            // Track script loading
+            scripts.forEach(script => {
+                script.addEventListener('load', () => {
+                    resourcesLoaded++;
+                    updateProgress();
+                });
+                script.addEventListener('error', () => {
+                    resourcesLoaded++;
+                    updateProgress();
+                });
+            });
+            
+            // Initial progress update
+            updateProgress();
+            
+            // Fallback: complete loading after maximum 5 seconds
+            setTimeout(() => {
+                if (!loadingComplete) {
+                    completeLoading();
+                }
+            }, 5000);
+        });
+        
+        // Also listen for window load event as backup
+        window.addEventListener('load', function() {
+            // Give a small delay to ensure smooth animation
+            setTimeout(() => {
+                if (!loadingComplete) {
+                    completeLoading();
+                }
+            }, 200);
+        });
+        
+        // Intersection Observer to trigger animations on scroll
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Animate skill bars
+                        if (entry.target.id === 'skills') {
+                            const progressBars = entry.target.querySelectorAll('.progress-bar-fill');
+                            progressBars.forEach(bar => {
+                                bar.style.width = bar.dataset.width;
+                            });
+                        }
+                        
+                        // Add 'in-view' class to other animated sections if needed
+                         entry.target.classList.add('in-view');
+                         // We can unobserve the entry after it has been animated
+                         observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe all sections with the .content-card class
+            const sections = document.querySelectorAll('.content-card');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
