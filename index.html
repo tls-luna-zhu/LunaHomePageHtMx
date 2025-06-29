@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <style>
         /* --- Root Variables for Theming --- */
         :root {
@@ -458,34 +459,39 @@
                          <h2 class="pixel-art-font text-3xl font-bold px-4 pb-4 pt-2 text-[var(--color-text-primary)] flex items-center gap-3">
                             <span class="text-2xl">🛠️</span>Skills
                         </h2>
-                        <div class="space-y-5 p-4">
-                            <div>
+                        <div class="space-y-5 p-4" id="skills-list-container" hx-trigger="revealed" hx-get="/skills-content" hx-swap="innerHTML">
+                            <!-- Content will be loaded here by HTMX -->
+                            <!-- Placeholder for Nuxt.js -->
+                            <div id="skill-nuxtjs-container">
                                 <div class="flex justify-between items-center mb-1">
                                     <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Nuxt.js</p>
                                     <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Intermediate</p>
                                 </div>
-                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="90%" style="background-color: var(--color-trans-pink);"></div></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%; background-color: var(--color-trans-pink);"></div></div>
                             </div>
-                            <div>
+                            <!-- Placeholder for Web Design -->
+                            <div id="skill-webdesign-container">
                                 <div class="flex justify-between items-center mb-1">
                                     <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Web Design (Tailwindcss)</p>
                                     <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Still learning</p>
                                 </div>
-                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="75%" style="background-color: var(--color-trans-blue);"></div></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%; background-color: var(--color-trans-blue);"></div></div>
                             </div>
-                             <div>
+                            <!-- Placeholder for Pixel Art -->
+                            <div id="skill-pixelart-container">
                                 <div class="flex justify-between items-center mb-1">
                                     <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Pixel Art</p>
                                     <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Novice</p>
                                 </div>
-                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="60%" style="background-color: #70D870;"></div></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%; background-color: #70D870;"></div></div>
                             </div>
-                            <div>
+                            <!-- Placeholder for Game Development -->
+                            <div id="skill-gamedev-container">
                                 <div class="flex justify-between items-center mb-1">
                                     <p class="pixel-art-font text-[var(--color-text-secondary)] text-lg font-medium">Game Development (Godot)</p>
                                     <p class="pixel-art-font text-[var(--color-text-primary)] text-sm font-medium">Beginner</p>
                                 </div>
-                                <div class="progress-bar-bg"><div class="progress-bar-fill" data-width="40%" style="background-color: #D8B870;"></div></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%; background-color: #D8B870;"></div></div>
                             </div>
                         </div>
                     </section>
@@ -744,32 +750,47 @@
             }, 200);
         });
         
-        // Intersection Observer to trigger animations on scroll
+        // Intersection Observer to trigger animations on scroll (for non-HTMX enhanced sections)
         document.addEventListener("DOMContentLoaded", () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Animate skill bars
-                        if (entry.target.id === 'skills') {
-                            const progressBars = entry.target.querySelectorAll('.progress-bar-fill');
-                            progressBars.forEach(bar => {
-                                bar.style.width = bar.dataset.width;
-                            });
+                        // Example: Add 'in-view' class to other animated sections if needed
+                        // Ensure this doesn't conflict with HTMX-controlled elements like #skills
+                        if (entry.target.id !== 'skills') { // Check if it's not the skills section
+                           entry.target.classList.add('in-view');
+                           // We can unobserve the entry after it has been animated
+                           observer.unobserve(entry.target);
                         }
-                        
-                        // Add 'in-view' class to other animated sections if needed
-                         entry.target.classList.add('in-view');
-                         // We can unobserve the entry after it has been animated
-                         observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
 
-            // Observe all sections with the .content-card class
-            const sections = document.querySelectorAll('.content-card');
+            // Observe all sections with the .content-card class, EXCLUDING the #skills section if it's fully handled by HTMX
+            const sections = document.querySelectorAll('.content-card:not(#skills)');
             sections.forEach(section => {
                 observer.observe(section);
             });
+
+            // For the #skills section, HTMX will handle the reveal.
+            // The fade-in-up animation for #skills is still handled by CSS .content-card animation.
+            // If #skills itself needs an 'in-view' class for other purposes, it can be added separately
+            // or the observer can still watch it but not handle progress bars.
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                const skillsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (!entry.target.classList.contains('in-view')) {
+                                entry.target.classList.add('in-view');
+                            }
+                            // HTMX handles content loading, JS observer just for class if needed.
+                            // skillsObserver.unobserve(entry.target); // Only unobserve if it's a one-time class add
+                        }
+                    });
+                }, { threshold: 0.1 });
+                skillsObserver.observe(skillsSection);
+            }
         });
     </script>
 </body>
